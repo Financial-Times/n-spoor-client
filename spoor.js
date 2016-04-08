@@ -21,7 +21,7 @@ export default class SpoorApi {
 
 	submit ({source=this.source, category=this.category, req=this.req, apiKey=this.apiKey, action, context}={}) {
 
-		logger.info('1spoor -> will send event? ->', JSON.stringify({
+		logger.info('spoor -> will send event? ->', JSON.stringify({
 			category,
 			action,
 			willSendEvent: this.shouldSubmitEvent,
