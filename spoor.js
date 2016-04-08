@@ -1,5 +1,5 @@
-import {logger} from 'ft-next-logger';
-import raven from 'express-errors-handler';
+import logger from '@financial-times/n-logger';
+import raven from '@financial-times/n-raven';
 
 export default class SpoorApi {
 
