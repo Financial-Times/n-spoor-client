@@ -62,8 +62,7 @@ export default class SpoorApi {
 					'Content-Type': 'application/json',
 					'Cookie': req.get('cookie'),
 					'User-Agent': req.get('user-agent'),
-					'Content-Length': new Buffer(JSON.stringify(the.data)).length,
-					'spoor-ticket': '16e5045d-7797-5990-bdaf-4a767a655aeb'
+					'Content-Length': new Buffer(JSON.stringify(the.data)).length
 				},
 				body: JSON.stringify(the.data)
 			})
