@@ -60,7 +60,7 @@ export default class SpoorApi {
 				headers: {
 					'Accept': 'application/json',
 					'Content-Type': 'application/json',
-					'Cookie': req.get('cookie'),
+					'Cookie': req.get('ft-cookie-original'),
 					'User-Agent': req.get('user-agent'),
 					'Content-Length': new Buffer(JSON.stringify(the.data)).length
 				},
