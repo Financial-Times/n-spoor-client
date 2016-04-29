@@ -1,6 +1,12 @@
 import logger from '@financial-times/n-logger';
 import raven from '@financial-times/n-raven';
 
+const userIdPattern = /spoor-id=([^;]*)/;
+const extractSpoorId = (cookie) => {
+	const matches = userIdPattern.exec(cookie) || [];
+	return matches[1];
+}
+
 export default class SpoorApi {
 
 	constructor ({
@@ -62,7 +68,8 @@ export default class SpoorApi {
 					'Content-Type': 'application/json',
 					'Cookie': req.get('ft-cookie-original'),
 					'User-Agent': req.get('user-agent'),
-					'Content-Length': new Buffer(JSON.stringify(the.data)).length
+					'Content-Length': new Buffer(JSON.stringify(the.data)).length,
+					'spoor-device-id': extractSpoorId(req.get('ft-cookie-original'))
 				},
 				body: JSON.stringify(the.data)
 			})
