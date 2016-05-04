@@ -1,4 +1,4 @@
-n-spoor-client
+n-spoor-client [![Build Status](https://travis-ci.org/Financial-Times/n-spoor-client.svg?branch=master)](https://travis-ci.org/Financial-Times/n-spoor-client)
 ==============
 
 Node client to send events to [Spoor](https://spoor-docs.herokuapp.com/)
