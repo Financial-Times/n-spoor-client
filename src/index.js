@@ -1,6 +1,5 @@
 import fetch from 'node-fetch';
 import logger from '@financial-times/n-logger';
-import raven from '@financial-times/n-raven';
 
 const userIdPattern = /spoor-id=([^;]*)/;
 const extractSpoorId = (cookie) => {
@@ -94,7 +93,7 @@ export default class SpoorClient {
 			})
 			.catch(err => {
 				logger.error(`spoor -> api error (${action}) -> `, err);
-				raven.captureError(err);
+				return Promise.reject(err);
 			});
 		}
 	}
