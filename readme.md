@@ -21,7 +21,10 @@ function expressRoute(req, res) {
     context: {
       quux: 'frob'
     }
-  });
+  }).then(
+    () => console.log('event successfully logged'),
+    ({payload, status, request}) => console.log(`submission failed, status ${status}`)
+  );
 }
 ```
 
@@ -43,7 +46,7 @@ Initialize a Spoor client with options:
 
 ### `client.submit(event)`
 
-Send an event to Spoor. The event should be an object with keys:
+Send an event to Spoor. Returns a promise which resolves when the event is successfully sent to Spoor, or rejects with a status object when submission fails. The event should be an object with keys:
 
 | Option       | Description                                                                            |
 |--------------|----------------------------------------------------------------------------------------|
