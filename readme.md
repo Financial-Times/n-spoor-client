@@ -54,7 +54,7 @@ Send an event to Spoor. Returns a promise which resolves when the event is succe
 | `source`     | String to tell Spoor where the event came from. *Required in constructor or `submit`*. |
 | `category`   | String for Spoor event categorisation. *Required in constructor or `submit`*.          |
 | `action`     | String name of the event action.                                                       |
-| `context`    | Object containing metadata pertaining to the event.                                    |
+| `context`    | Object containing metadata pertaining to the event. *Required*.                        |
 | `apiKey`     | Defaults to `process.env.SPOOR_API_KEY`                                                |
 
 Credits
