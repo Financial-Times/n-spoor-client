@@ -1,4 +1,4 @@
-SRC_FILES=$(shell find src -name *.js)
+SRC_FILES=$(wildcard src/*.js)
 LIB_FILES=$(patsubst src/%.js, lib/%.js, $(SRC_FILES))
 
 all: $(LIB_FILES)
