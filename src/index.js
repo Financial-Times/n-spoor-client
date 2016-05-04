@@ -1,3 +1,4 @@
+import fetch from 'node-fetch';
 import logger from '@financial-times/n-logger';
 import raven from '@financial-times/n-raven';
 
@@ -7,7 +8,7 @@ const extractSpoorId = (cookie) => {
 	return matches[1];
 }
 
-export default class SpoorApi {
+export default class SpoorClient {
 
 	constructor ({
 		req,
