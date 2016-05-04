@@ -12,8 +12,8 @@ export default class SpoorClient {
 
 	constructor ({
 		req,
-		source='next-signup',
-		category='signup',
+		source,
+		category,
 		submitIf=true,
 		inTestMode=false,
 		apiKey=process.env.SPOOR_API_KEY
