@@ -96,5 +96,7 @@ export default class SpoorClient {
 				return Promise.reject(err);
 			});
 		}
+
+		return Promise.resolve();
 	}
 }

@@ -57,7 +57,6 @@ Send an event to Spoor. Returns a promise which resolves when the event is succe
 | `context`    | Object containing metadata pertaining to the event. *Required*.                        |
 | `apiKey`     | Defaults to `process.env.SPOOR_API_KEY`                                                |
 
-Credits
--------
+---
 
-Written by Ifeanyi Isitor (@ifyio) at Financial Times. Originally part of [next-signup](https://github.com/Financial-Times/next-signup).
+Originally part of [next-signup](https://github.com/Financial-Times/next-signup).
