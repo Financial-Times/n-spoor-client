@@ -2,7 +2,10 @@
   "name": "@financial-times/n-spoor-client",
   "description": "Javascript client for the Spoor API",
   "main": "lib/index.js",
-  "files": ["package.json", "lib"],
+  "files": [
+    "package.json",
+    "lib"
+  ],
   "scripts": {
     "test": "make test"
   },
@@ -11,7 +14,7 @@
     "url": "https://github.com/Financial-Times/n-spoor-client.git"
   },
   "author": "Ifeanyi Isitor",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Financial-Times/n-spoor-client/issues"
