@@ -40,6 +40,7 @@ Initialize a Spoor client with options:
 | `req`        | The default Express request for all events. *Required in constructor or `submit`*.     |
 | `source`     | String to tell Spoor where the event came from. *Required in constructor or `submit`*. |
 | `category`   | String for Spoor event categorisation. *Required in constructor or `submit`*.          |
+| `product`    | String for Spoor `context.product`. Defaults to `"next"`.                              |
 | `apiKey`     | Defaults to `process.env.SPOOR_API_KEY`                                                |
 | `submitIf`   | Boolean. If false, the client will not submit events.                                  |
 | `inTestMode` | Boolean. Sets a context flag to tell Spoor the event is a test event.                  |
@@ -48,15 +49,15 @@ Initialize a Spoor client with options:
 
 Send an event to Spoor. Returns a promise which resolves when the event is successfully sent to Spoor, or rejects with a status object when submission fails. The event should be an object with keys:
 
-| Option       | Description                                                                            |
-|--------------|----------------------------------------------------------------------------------------|
-| `req`        | The default Express request for all events. *Required in constructor or `submit`*.     |
-| `source`     | String to tell Spoor where the event came from. *Required in constructor or `submit`*. |
-| `category`   | String for Spoor event categorisation. *Required in constructor or `submit`*.          |
-| `action`     | String name of the event action.                                                       |
-| `context`    | Object containing metadata pertaining to the event. *Required*.                        |
-| `apiKey`     | Defaults to `process.env.SPOOR_API_KEY`                                                |
-
+| Option       | Description                                                                                                                      |
+|--------------|----------------------------------------------------------------------------------------------------------------------------------|
+| `req`        | The default Express request for all events. *Required in constructor or `submit`*.                                               |
+| `source`     | String to tell Spoor where the event came from. *Required in constructor or `submit`*.                                           |
+| `category`   | String for Spoor event categorisation. *Required in constructor or `submit`*.                                                    |
+| `action`     | String name of the event action.                                                                                                 |
+| `context`    | Object containing metadata pertaining to the event. *Required*.                                                                  |
+| `apiKey`     | Defaults to `process.env.SPOOR_API_KEY`                                                                                          |
+| `product`    | String for Spoor `context.product`. Defaults to the SpoorClient constructor `product` value, which in turn defaults to `"next"`. |
 ---
 
 Originally part of [next-signup](https://github.com/Financial-Times/next-signup).
