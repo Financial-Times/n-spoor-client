@@ -11,10 +11,15 @@ const fakeRequest = (headers) => ({
 });
 
 describe('Spoor client', () => {
-	it('should send an event to Spoor', () => {
+
+	afterEach(() => nock.cleanAll());
+
+	it('should send an event to Spoor using cookie header from Varnish', () => {
 		const scope = nock('https://spoor-api.ft.com/', {
 			reqheaders: {
-				Cookie: 'original cookie val',
+				Cookie: 'original cookie val; spoor-id=12345;',
+				'User-Agent': 'original ua val',
+				'spoor-device-id': '12345',
 			},
 		})
 		.post('/ingest')
@@ -24,8 +29,35 @@ describe('Spoor client', () => {
 			source: 'n-spoor-client',
 			category: 'test',
 			req: fakeRequest({
-				'ft-cookie-original': 'original cookie val',
+				'ft-cookie-original': 'original cookie val; spoor-id=12345;',
+				'user-agent': 'original ua val',
 			}),
+		});
+
+		return client.submit({
+			action: 'test',
+			context: {},
+		}).then(() => {
+			console.assert(scope.isDone(), 'should have sent event');
+		});
+	});
+
+	it('should send an event to Spoor using explicit cookies and ua values', () => {
+		const scope = nock('https://spoor-api.ft.com/', {
+			reqheaders: {
+				Cookie: 'original cookie val; spoor-id=12345;',
+				'User-Agent': 'original ua val',
+				'spoor-device-id': '12345',
+			},
+		})
+		.post('/ingest')
+		.reply(202, {});
+
+		const client = new SpoorClient({
+			source: 'n-spoor-client',
+			category: 'test',
+			cookies: 'original cookie val; spoor-id=12345;',
+			ua: 'original ua val',
 		});
 
 		return client.submit({
