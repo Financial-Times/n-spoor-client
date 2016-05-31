@@ -1,17 +1,17 @@
-n-spoor-client [![Build Status](https://travis-ci.org/Financial-Times/n-spoor-client.svg?branch=master)](https://travis-ci.org/Financial-Times/n-spoor-client)
+spoor-client [![Build Status](https://travis-ci.org/Financial-Times/spoor-client.svg?branch=master)](https://travis-ci.org/Financial-Times/spoor-client)
 ==============
 
 Node client to send events to [Spoor](https://spoor-docs.herokuapp.com/)
 
 ```shell
-npm install -S @financial-times/n-spoor-client
+npm install -S @financial-times/spoor-client
 ```
 
 Usage
 -----
 
 ```js
-import SpoorClient from '@financial-times/n-spoor-client';
+import SpoorClient from '@financial-times/spoor-client';
 
 function expressRoute(req, res) {
   const spoor = new SpoorClient({req});
