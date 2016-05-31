@@ -13,19 +13,21 @@ export default class SpoorClient {
 		req,
 		source,
 		category,
+		product='next',
 		submitIf=true,
 		inTestMode=false,
 		apiKey=process.env.SPOOR_API_KEY
 	}={}) {
 		this.source = source;
 		this.category = category;
+		this.product = product;
 		this.req = req;
 		this.shouldSubmitEvent = submitIf;
 		this.apiKey = apiKey;
 		this.inTestMode = inTestMode;
 	}
 
-	submit ({source=this.source, category=this.category, req=this.req, apiKey=this.apiKey, action, context}={}) {
+	submit ({source=this.source, category=this.category, req=this.req, apiKey=this.apiKey, product=this.product, action, context}={}) {
 
 		logger.info('spoor -> will send event? ->', JSON.stringify({
 			category,
@@ -35,7 +37,7 @@ export default class SpoorClient {
 		}));
 
 		if(this.shouldSubmitEvent) {
-			context.product = 'next';
+			context.product = context.product || product;
 			context.isTestEvent = this.inTestMode;
 
 			const the = {
