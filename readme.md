@@ -37,9 +37,11 @@ Initialize a Spoor client with options:
 
 | Option       | Description                                                                            |
 |--------------|----------------------------------------------------------------------------------------|
-| `req`        | The default Express request for all events. *Required in constructor or `submit`*.     |
 | `source`     | String to tell Spoor where the event came from. *Required in constructor or `submit`*. |
 | `category`   | String for Spoor event categorisation. *Required in constructor or `submit`*.          |
+| `req`        | The default Express request for all events. *You must set either `req` or both `cookies` and `ua` either in constructor or `submit`*.     |
+| `cookies`    | Optional explicit `Cookie` HTTP header. Defaults to `req.get('ft-cookie-original')`.                              |
+| `ua`    | Optional explicit `User-Agent` HTTP header. Defaults to `req.get('user-agent')`.                              |
 | `product`    | String for Spoor `context.product`. Defaults to `"next"`.                              |
 | `apiKey`     | Defaults to `process.env.SPOOR_API_KEY`                                                |
 | `submitIf`   | Boolean. If false, the client will not submit events.                                  |
@@ -51,9 +53,11 @@ Send an event to Spoor. Returns a promise which resolves when the event is succe
 
 | Option       | Description                                                                                                                      |
 |--------------|----------------------------------------------------------------------------------------------------------------------------------|
-| `req`        | The default Express request for all events. *Required in constructor or `submit`*.                                               |
 | `source`     | String to tell Spoor where the event came from. *Required in constructor or `submit`*.                                           |
 | `category`   | String for Spoor event categorisation. *Required in constructor or `submit`*.                                                    |
+| `req`        | The default Express request for all events. *You must set either `req` or both `cookies` and `ua` either in constructor or `submit`*.     |
+| `cookies`    | Optional explicit `Cookie` HTTP header. Defaults to `req.get('ft-cookie-original')`.                              |
+| `ua`    | Optional explicit `User-Agent` HTTP header. Defaults to `req.get('user-agent')`.                              |
 | `action`     | String name of the event action.                                                                                                 |
 | `context`    | Object containing metadata pertaining to the event. *Required*.                                                                  |
 | `apiKey`     | Defaults to `process.env.SPOOR_API_KEY`                                                                                          |
