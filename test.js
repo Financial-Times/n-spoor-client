@@ -12,14 +12,20 @@ const fakeRequest = (headers) => ({
 
 describe('Spoor client', () => {
 	it('should send an event to Spoor', () => {
-		const scope = nock('https://spoor-api.ft.com/')
+		const scope = nock('https://spoor-api.ft.com/', {
+			reqheaders: {
+				Cookie: 'original cookie val',
+			},
+		})
 		.post('/ingest')
 		.reply(202, {});
 
 		const client = new SpoorClient({
 			source: 'n-spoor-client',
 			category: 'test',
-			req: fakeRequest({}),
+			req: fakeRequest({
+				'ft-cookie-original': 'original cookie val',
+			}),
 		});
 
 		return client.submit({
