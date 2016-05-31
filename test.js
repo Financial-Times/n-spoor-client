@@ -26,7 +26,7 @@ describe('Spoor client', () => {
 		.reply(202, {});
 
 		const client = new SpoorClient({
-			source: 'n-spoor-client',
+			source: 'spoor-client',
 			category: 'test',
 			req: fakeRequest({
 				'ft-cookie-original': 'original cookie val; spoor-id=12345;',
@@ -54,7 +54,7 @@ describe('Spoor client', () => {
 		.reply(202, {});
 
 		const client = new SpoorClient({
-			source: 'n-spoor-client',
+			source: 'spoor-client',
 			category: 'test',
 			cookies: 'original cookie val; spoor-id=12345;',
 			ua: 'original ua val',
