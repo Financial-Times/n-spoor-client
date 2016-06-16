@@ -8,4 +8,4 @@ lib/%.js: src/%.js
 	node_modules/.bin/babel $< -o $@
 
 test: all test.js
-	mocha --compilers js:babel-register test.js
+	node_modules/.bin/mocha --compilers js:babel-register test.js

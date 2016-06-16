@@ -13,14 +13,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Financial-Times/n-spoor-client.git"
+    "url": "https://github.com/Financial-Times/spoor-client.git"
   },
   "author": "Ifeanyi Isitor",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Financial-Times/n-spoor-client/issues"
+    "url": "https://github.com/Financial-Times/spoor-client/issues"
   },
-  "homepage": "https://github.com/Financial-Times/n-spoor-client",
+  "homepage": "https://github.com/Financial-Times/spoor-client",
   "devDependencies": {
     "babel-cli": "^6.8.0",
     "babel-plugin-add-module-exports": "^0.1.4",
