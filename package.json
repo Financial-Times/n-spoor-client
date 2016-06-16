@@ -3,10 +3,6 @@
   "version": "2.1.0",
   "description": "Javascript client for the Spoor API",
   "main": "lib/index.js",
-  "files": [
-    "package.json",
-    "lib"
-  ],
   "scripts": {
     "test": "make test",
     "prepublish": "make"
