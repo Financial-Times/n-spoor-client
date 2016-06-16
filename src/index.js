@@ -12,14 +12,15 @@ export default class SpoorClient {
 	constructor ({
 		source,
 		category,
-		req=null,
-		cookies=null,
-		ua=null,
-		product='next',
-		submitIf=true,
-		inTestMode=false,
-		apiKey=process.env.SPOOR_API_KEY
-	}={}) {
+		req = null,
+		cookies = null,
+		ua = null,
+		product = 'next',
+		submitIf = true,
+		inTestMode = false,
+		deviceId = null,
+		apiKey = process.env.SPOOR_API_KEY
+	} = {}) {
 		this.source = source;
 		this.category = category;
 		this.product = product;
@@ -29,12 +30,25 @@ export default class SpoorClient {
 		this.shouldSubmitEvent = submitIf;
 		this.apiKey = apiKey;
 		this.inTestMode = inTestMode;
+		this.deviceId = deviceId;
 	}
 
-	submit ({source=this.source, category=this.category, req=this.req, cookies=this.cookies, ua=this.ua, apiKey=this.apiKey, product=this.product, action, context}={}) {
+	submit ({
+		source = this.source,
+		category = this.category,
+		req = this.req,
+		cookies = this.cookies,
+		ua = this.ua,
+		apiKey = this.apiKey,
+		product = this.product,
+		deviceId = this.deviceId,
+		action,
+		context
+	} = {}) {
 
 		cookies = cookies || (req && req.get('ft-cookie-original'));
 		ua = ua || (req && req.get('user-agent'));
+		deviceId = deviceId || extractSpoorId(cookies);
 
 		logger.info('spoor -> will send event? ->', JSON.stringify({
 			category,
@@ -78,7 +92,7 @@ export default class SpoorClient {
 					'Cookie': cookies,
 					'User-Agent': ua,
 					'Content-Length': new Buffer(JSON.stringify(the.data)).length,
-					'spoor-device-id': extractSpoorId(cookies)
+					'spoor-device-id': deviceId
 				},
 				body: JSON.stringify(the.data)
 			})
