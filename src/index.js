@@ -78,11 +78,11 @@ export default class SpoorClient {
 					context: context,
 					category: category,
 					action: action
-				}
+				},
+				deviceId,
 			};
 
-			logger.info('spoor -> about to send event ->', JSON.stringify(the.data));
-			logger.info('spoor -> about to send event ->', the.summary);
+			logger.info('spoor -> about to send event ->', JSON.stringify(the));
 
 			return fetch('https://spoor-api.ft.com/ingest', {
 				method: 'post',
