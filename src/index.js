@@ -92,7 +92,7 @@ export default class SpoorClient {
 					'Cookie': cookies,
 					'User-Agent': ua,
 					'Content-Length': new Buffer(JSON.stringify(the.data)).length,
-					'spoor-device-id': deviceId
+					'spoor-id': deviceId
 				},
 				body: JSON.stringify(the.data)
 			})
