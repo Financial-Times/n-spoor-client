@@ -38,7 +38,7 @@ describe('Spoor client', () => {
 			reqheaders: {
 				Cookie: 'original cookie val; spoor-id=12345;',
 				'User-Agent': 'original ua val',
-				'spoor-device-id': '12345',
+				'spoor-id': '12345',
 			},
 		})
 		.post('/ingest')
@@ -66,7 +66,7 @@ describe('Spoor client', () => {
 			reqheaders: {
 				Cookie: 'original cookie val; spoor-id=12345;',
 				'User-Agent': 'original ua val',
-				'spoor-device-id': '12345',
+				'spoor-id': '12345',
 			},
 		})
 		.post('/ingest')
@@ -90,7 +90,7 @@ describe('Spoor client', () => {
 	it('should send an event to Spoor using explicit device id', () => {
 		const scope = nock('https://spoor-api.ft.com/', {
 			reqheaders: {
-				'spoor-device-id': '12345',
+				'spoor-id': '12345',
 			},
 		})
 		.post('/ingest')
