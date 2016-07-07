@@ -45,8 +45,8 @@ export default class SpoorClient {
 		apiKey = this.apiKey,
 		product = this.product,
 		deviceId = this.deviceId,
-		action,
-		context
+		context = {},
+		action
 	} = {}) {
 
 		cookies = cookies || (req && req.get('ft-cookie-original'));

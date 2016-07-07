@@ -4,10 +4,11 @@ import logger from '@financial-times/n-logger';
 
 logger.removeConsole();
 
-const fakeRequest = (headers) => ({
+const fakeRequest = (headers, ip = null) => ({
 	get(k) {
 		return headers[k];
-	}
+	},
+	ip
 });
 
 describe('Spoor client', () => {
@@ -109,4 +110,41 @@ describe('Spoor client', () => {
 			console.assert(scope.isDone(), 'should have sent event');
 		});
 	});
+
+	it('should use the client IP from request', () => {
+		const scope = nock('https://spoor-api.ft.com/')
+		.post('/ingest', {
+			device: {
+				ip: '1.2.3.4'
+			},
+		})
+		.reply(202, {});
+
+		const client = new SpoorClient({
+			req: fakeRequest({}, '1.2.3.4'),
+		});
+
+		return client.submit().then(() => {
+			console.assert(scope.isDone(), 'should have sent event');
+		});
+	});
+
+	it('should use an overridden client IP', () => {
+		const scope = nock('https://spoor-api.ft.com/')
+		.post('/ingest', {
+			device: {
+				ip: '2.3.4.5'
+			},
+		})
+		.reply(202, {});
+
+		const client = new SpoorClient({
+			ip: '2.3.4.5'
+		});
+
+		return client.submit().then(() => {
+			console.assert(scope.isDone(), 'should have sent event');
+		});
+	});
+
 });
