@@ -15,6 +15,7 @@ export default class SpoorClient {
 		req = null,
 		cookies = null,
 		ua = null,
+		ip = null,
 		product = 'next',
 		submitIf = true,
 		inTestMode = false,
@@ -27,6 +28,7 @@ export default class SpoorClient {
 		this.req = req;
 		this.cookies = cookies;
 		this.ua = ua;
+		this.ip = ip;
 		this.shouldSubmitEvent = submitIf;
 		this.apiKey = apiKey;
 		this.inTestMode = inTestMode;
@@ -39,6 +41,7 @@ export default class SpoorClient {
 		req = this.req,
 		cookies = this.cookies,
 		ua = this.ua,
+		ip = this.ip,
 		apiKey = this.apiKey,
 		product = this.product,
 		deviceId = this.deviceId,
@@ -48,6 +51,7 @@ export default class SpoorClient {
 
 		cookies = cookies || (req && req.get('ft-cookie-original'));
 		ua = ua || (req && req.get('user-agent'));
+		ip = ip || (req && req.ip);
 		deviceId = deviceId || extractSpoorId(cookies);
 
 		logger.info('spoor -> will send event? ->', JSON.stringify({
@@ -74,6 +78,9 @@ export default class SpoorClient {
 						api_key: apiKey,
 						version: '1.0.0',
 						source: source
+					},
+					device: {
+						ip
 					},
 					context: context,
 					category: category,
