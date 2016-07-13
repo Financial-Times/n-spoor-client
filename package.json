@@ -1,6 +1,6 @@
 {
   "name": "@financial-times/spoor-client",
-  "version": "2.2.2",
+  "version": "2.2.3",
   "description": "Javascript client for the Spoor API",
   "main": "lib/index.js",
   "scripts": {
