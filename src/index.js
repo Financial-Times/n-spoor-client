@@ -54,12 +54,12 @@ export default class SpoorClient {
 		ip = ip || (req && req.ip);
 		deviceId = deviceId || extractSpoorId(cookies);
 
-		logger.info('spoor -> will send event? ->', {
+		logger.info('spoor -> will send event? -> ' + JSON.stringify({
 			category,
 			action,
 			willSendEvent: this.shouldSubmitEvent,
 			inTestMode: this.inTestMode
-		});
+		}));
 
 		if(this.shouldSubmitEvent) {
 			context.product = context.product || product;
@@ -89,7 +89,7 @@ export default class SpoorClient {
 				deviceId,
 			};
 
-			logger.info('spoor -> about to send event ->', the);
+			logger.info('spoor -> about to send event -> ' + JSON.stringify(the));
 
 			return fetch('https://spoor-api.ft.com/ingest', {
 				method: 'post',
@@ -104,7 +104,7 @@ export default class SpoorClient {
 				body: JSON.stringify(the.data)
 			})
 			.then(response => {
-				logger.info('spoor -> response status ->', response.status);
+				logger.info('spoor -> response status -> ' + JSON.stringify(response.status));
 				the.status = response.status;
 				return response.json();
 			})
@@ -115,7 +115,7 @@ export default class SpoorClient {
 					request: the.summary
 				};
 
-				logger.info('spoor -> response ->', info);
+				logger.info('spoor -> response -> ' + JSON.stringify(info));
 
 				if(the.status !== 202) {
 					return Promise.reject(info);
