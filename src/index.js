@@ -54,12 +54,12 @@ export default class SpoorClient {
 		ip = ip || (req && req.ip);
 		deviceId = deviceId || extractSpoorId(cookies);
 
-		logger.info('spoor -> will send event? ->', JSON.stringify({
+		logger.info('spoor -> will send event? ->', {
 			category,
 			action,
 			willSendEvent: this.shouldSubmitEvent,
 			inTestMode: this.inTestMode
-		}));
+		});
 
 		if(this.shouldSubmitEvent) {
 			context.product = context.product || product;
@@ -89,7 +89,7 @@ export default class SpoorClient {
 				deviceId,
 			};
 
-			logger.info('spoor -> about to send event ->', JSON.stringify(the));
+			logger.info('spoor -> about to send event ->', the);
 
 			return fetch('https://spoor-api.ft.com/ingest', {
 				method: 'post',
