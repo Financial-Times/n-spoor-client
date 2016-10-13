@@ -48,11 +48,10 @@ export default class SpoorClient {
 		context = {},
 		action
 	} = {}) {
-
 		cookies = cookies || (req && req.get('ft-cookie-original'));
 		ua = ua || (req && req.get('user-agent'));
 		ip = ip || (req && (req.get('fastly-client-ip') || req.ip));
-		deviceId = deviceId || extractSpoorId(cookies);
+		deviceId = deviceId || (req && (req.get('FT-Spoor-ID'))) || extractSpoorId(cookies);
 
 		logger.info('spoor -> will send event? -> ' + JSON.stringify({
 			category,
