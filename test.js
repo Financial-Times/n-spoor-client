@@ -111,6 +111,33 @@ describe('Spoor client', () => {
 		});
 	});
 
+	it('should send an event to Spoor using a header-provided device id', () => {
+		const fakeSpoorId = 'abcdef12456790';
+		const scope = nock('https://spoor-api.ft.com/', {
+			reqheaders: {
+				'spoor-id': fakeSpoorId,
+			},
+		})
+		.post('/ingest')
+		.reply(202, {});
+
+		const client = new SpoorClient({
+			source: 'spoor-client',
+			category: 'test',
+			req: fakeRequest({
+				'FT-Spoor-ID': fakeSpoorId
+			}),
+		});
+
+		return client.submit({
+			action: 'test',
+			context: {},
+		}).then(() => {
+			console.assert(scope.isDone(), 'should have sent event');
+		});
+
+	});
+
 	it('should use the client IP from request', () => {
 		const scope = nock('https://spoor-api.ft.com/')
 		.post('/ingest', {
