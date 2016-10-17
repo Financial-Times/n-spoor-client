@@ -150,7 +150,7 @@ describe('Spoor client', () => {
 		const client = new SpoorClient({
 			source: 'spoor-client',
 			category: 'test',
-			requestId: '12345',
+			spoorTicket: '12345',
 		});
 
 		return client.submit({
