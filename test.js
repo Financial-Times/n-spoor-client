@@ -138,6 +138,29 @@ describe('Spoor client', () => {
 
 	});
 
+	it('should send an event to Spoor using explicit request id', () => {
+		const scope = nock('https://spoor-api.ft.com/', {
+			reqheaders: {
+				'spoor-ticket': '12345',
+			},
+		})
+		.post('/ingest')
+		.reply(202, {});
+
+		const client = new SpoorClient({
+			source: 'spoor-client',
+			category: 'test',
+			requestId: '12345',
+		});
+
+		return client.submit({
+			action: 'test',
+			context: {},
+		}).then(() => {
+			console.assert(scope.isDone(), 'should have sent event');
+		});
+	});
+
 	it('should use the client IP from request', () => {
 		const scope = nock('https://spoor-api.ft.com/')
 		.post('/ingest', {

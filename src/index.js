@@ -1,4 +1,5 @@
 import fetch from 'node-fetch';
+import uuid from 'uuid';
 import logger from '@financial-times/n-logger';
 
 const userIdPattern = /spoor-id=([^;]*)/;
@@ -20,6 +21,7 @@ export default class SpoorClient {
 		submitIf = true,
 		inTestMode = false,
 		deviceId = null,
+		requestId = null,
 		apiKey = process.env.SPOOR_API_KEY
 	} = {}) {
 		this.source = source;
@@ -33,6 +35,7 @@ export default class SpoorClient {
 		this.apiKey = apiKey;
 		this.inTestMode = inTestMode;
 		this.deviceId = deviceId;
+		this.requestId = requestId;
 	}
 
 	submit ({
@@ -45,6 +48,7 @@ export default class SpoorClient {
 		apiKey = this.apiKey,
 		product = this.product,
 		deviceId = this.deviceId,
+		requestId = this.requestId,
 		context = {},
 		action
 	} = {}) {
@@ -52,6 +56,7 @@ export default class SpoorClient {
 		ua = ua || (req && req.get('user-agent'));
 		ip = ip || (req && (req.get('fastly-client-ip') || req.ip));
 		deviceId = deviceId || (req && (req.get('FT-Spoor-ID'))) || extractSpoorId(cookies);
+		requestId = requestId || uuid.v4();
 
 		logger.info('spoor -> will send event? -> ' + JSON.stringify({
 			category,
@@ -99,7 +104,8 @@ export default class SpoorClient {
 					'Cookie': cookies,
 					'User-Agent': ua,
 					'Content-Length': new Buffer(JSON.stringify(the.data)).length,
-					'spoor-id': deviceId
+					'spoor-id': deviceId,
+					'spoor-ticket': requestId
 				},
 				body: JSON.stringify(the.data)
 			})
