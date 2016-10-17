@@ -79,13 +79,14 @@ export default class SpoorClient {
 						source: source
 					},
 					device: {
-						ip
+						ip,
+						spoor_id: deviceId
 					},
 					context: context,
 					category: category,
 					action: action
 				},
-				deviceId,
+				deviceId
 			};
 
 			logger.info('spoor -> about to send event -> ' + JSON.stringify(the));
