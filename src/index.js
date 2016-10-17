@@ -1,4 +1,5 @@
 import fetch from 'node-fetch';
+import uuid from 'uuid';
 import logger from '@financial-times/n-logger';
 
 const userIdPattern = /spoor-id=([^;]*)/;
@@ -20,6 +21,7 @@ export default class SpoorClient {
 		submitIf = true,
 		inTestMode = false,
 		deviceId = null,
+		spoorTicket = null,
 		apiKey = process.env.SPOOR_API_KEY
 	} = {}) {
 		this.source = source;
@@ -33,6 +35,7 @@ export default class SpoorClient {
 		this.apiKey = apiKey;
 		this.inTestMode = inTestMode;
 		this.deviceId = deviceId;
+		this.spoorTicket = spoorTicket;
 	}
 
 	submit ({
@@ -45,6 +48,7 @@ export default class SpoorClient {
 		apiKey = this.apiKey,
 		product = this.product,
 		deviceId = this.deviceId,
+		spoorTicket = this.spoorTicket,
 		context = {},
 		action
 	} = {}) {
@@ -52,8 +56,9 @@ export default class SpoorClient {
 		ua = ua || (req && req.get('user-agent'));
 		ip = ip || (req && (req.get('fastly-client-ip') || req.ip));
 		deviceId = deviceId || (req && (req.get('FT-Spoor-ID'))) || extractSpoorId(cookies);
+		spoorTicket = spoorTicket || uuid.v4();
 
-		logger.info('spoor -> will send event? -> ' + JSON.stringify({
+		logger.info('spoor -> will send event? ' + spoorTicket + ' -> ' + JSON.stringify({
 			category,
 			action,
 			willSendEvent: this.shouldSubmitEvent,
@@ -89,7 +94,7 @@ export default class SpoorClient {
 				deviceId
 			};
 
-			logger.info('spoor -> about to send event -> ' + JSON.stringify(the));
+			logger.info('spoor -> about to send event ' + spoorTicket + ' -> ' + JSON.stringify(the));
 
 			return fetch('https://spoor-api.ft.com/ingest', {
 				method: 'post',
@@ -99,12 +104,13 @@ export default class SpoorClient {
 					'Cookie': cookies,
 					'User-Agent': ua,
 					'Content-Length': new Buffer(JSON.stringify(the.data)).length,
-					'spoor-id': deviceId
+					'spoor-id': deviceId,
+					'spoor-ticket': spoorTicket
 				},
 				body: JSON.stringify(the.data)
 			})
 			.then(response => {
-				logger.info('spoor -> response status -> ' + JSON.stringify(response.status));
+				logger.info('spoor -> response status ' + spoorTicket + ' -> ' + JSON.stringify(response.status));
 				the.status = response.status;
 				return response.json();
 			})
@@ -115,7 +121,7 @@ export default class SpoorClient {
 					request: the.summary
 				};
 
-				logger.info('spoor -> response -> ' + JSON.stringify(info));
+				logger.info('spoor -> response ' + spoorTicket + ' -> ' + JSON.stringify(info));
 
 				if(the.status !== 202) {
 					return Promise.reject(info);
